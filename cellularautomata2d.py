@@ -11,7 +11,7 @@ from matplotlib import animation
 #from mpl_toolkits.mplot3d import Axes3D
 
 
-class CelAutomata2D(object):
+class CellAutomata2D(object):
     """ General class for celullar automata in a 2D lattice.
 
     """
