@@ -21,6 +21,7 @@ class CellAutomata2D(object):
         self.xlen = xlen
         self.ylen = ylen
         self.pbc = pbc
+        self.size = self.xlen*self.ylen
 
         # Lattice length taking into account boundary conditions
         # and number of cells in each side (margins) used to 
@@ -37,7 +38,7 @@ class CellAutomata2D(object):
             self._ymargin = 1
         self._xlimit = self._xlen_bc - self._xmargin
         self._ylimit = self._ylen_bc - self._ymargin
-        # Store lattice indexes corresponfing to the "true" lattice
+        # Store lattice indexes corresponding to the "true" lattice
         self._latt_idx = (slice(self._xmargin, self._xlimit),
                           slice(self._ymargin, self._ylimit))
     
@@ -92,20 +93,6 @@ class CellAutomata2D(object):
         self.latt.fill(fillvalue)
         return
 
-
-    def init_measures(self, nmeasures):
-        """Prepare the program to measure the simulation.
-        
-        This is a placeholder for the specefic method of the chosen model.
-        
-        Parameters
-        ----------
-            nmeasures : int
-                Number of measures.
-        """
-        pass
-        return
-    
     def evolve(nsteps):
         """Evolve the system the given number of timesteps.
     
