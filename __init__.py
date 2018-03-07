@@ -1,1 +1,1 @@
-from .celullarautomata2d import *
+from .cellularautomata2d import *
