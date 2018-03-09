@@ -5,12 +5,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import animation
 
-#import matplotlib as mpl
-#from matplotlib import pyplot as plt
-#from matplotlib import animation
-#from mpl_toolkits.mplot3d import Axes3D
-
-
 class CellAutomata2D(object):
     """ General class for celullar automata in a 2D lattice.
 
