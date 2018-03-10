@@ -10,12 +10,13 @@ class CellAutomata2D(object):
 
     """
 
-    def __init__(self, xlen, ylen, pbc=False, dtype=int):
+    def __init__(self, xlen, ylen, pbc=False, dtype=int, show_cbar=True):
         # Store the lattice parameters
         self.xlen = xlen
         self.ylen = ylen
         self.pbc = pbc
         self.size = self.xlen*self.ylen
+        self._show_cbar = show_cbar
 
         # Lattice length taking into account boundary conditions
         # and number of cells in each side (margins) used to 
@@ -197,7 +198,7 @@ class CellAutomata2D(object):
         return period, relaxtime
 
 
-    def plot(self, size=3, colorbar=True):
+    def plot(self, size=3):
         """Plot the system configuration. 
 
         """
@@ -205,7 +206,7 @@ class CellAutomata2D(object):
         fig, ax = plt.subplots(figsize=(size,size))
         im = ax.imshow(self.latt, cmap=self.cmap, vmin=self.vmincolor, 
                        vmax=self.vmaxcolor, interpolation=None)
-        if colorbar:
+        if self._show_cbar:
             cbar = fig.colorbar(im, ax=ax)
 
         return fig
@@ -260,7 +261,9 @@ class CellAutomata2D(object):
         fig, ax = plt.subplots()
         im = ax.imshow(self.latt, cmap=self.cmap, vmin=self.vmincolor, 
                     vmax=self.vmaxcolor, interpolation=None)
-        cbar = fig.colorbar(im, ax=ax)
+
+        if self._show_cbar:
+            cbar = fig.colorbar(im, ax=ax)
 
         anim = animation.FuncAnimation(fig, update, frames=nframes, 
                                        blit=False, fargs=(steps_per_frame,
