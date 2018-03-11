@@ -87,19 +87,39 @@ class CellAutomata2D(object):
         self.latt.fill(fillvalue)
         return
 
-    def evolve(nsteps):
-        """Evolve the system the given number of timesteps.
-    
-        This is a placeholder for the actual implentation of the method 
-        in the chosen model.
-        
-        Parameters:
-        -----------
-            nsteps : int
-                Number of timesteps to evolve.
+    def _evolvestep(self):
+        """Evolve the system one step.
+
+        Returns
+        -------
+            is_active : bool
+                True if the lattice is acvtive and False otherwise.
+
         """
-        pass
-        return
+        # Placeholder
+        is_active = False
+        return is_active
+
+    def evolve(self, nsteps=0): 
+        """Evolve the system in nsteps timesteps.
+            
+        Parameters
+        ----------
+            nsteps : int
+                Number of steps the system will be evolved.
+
+        Returns
+        -------
+            is_active : bool
+                True if the lattice is active and False otherwise. If the lattice is active but it does not chage (limit cycle of period 1), the function return True.
+
+        """
+        is_active = False
+
+        for i in range(nsteps):
+            is_active = self._evolvestep()
+
+        return is_active
     
     def measure(j_t):
         """Measure the current state of the lattice and store it.
