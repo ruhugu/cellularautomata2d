@@ -108,7 +108,7 @@ class CellAutomata2D(object):
         is_active = False
         return is_active
 
-    def evolve(self, nsteps=0): 
+    def evolve(self, nsteps=1): 
         """Evolve the system in nsteps timesteps.
             
         Parameters
