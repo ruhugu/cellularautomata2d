@@ -277,7 +277,7 @@ class CellAutomata2D(object):
         return fig
 
 
-    def animate(self, nframes, steps_per_frame=1, frame_interval=300):
+    def animate(self, nframes, steps_per_frame=1, frame_interval=300, size=3):
          
 
         def update(i, steps_per_frame, im, self):
@@ -285,7 +285,7 @@ class CellAutomata2D(object):
             im.set_array(self.latt)
             return im
 
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(size, size))
         im = ax.imshow(self.latt, cmap=self.cmap, vmin=self.vmincolor, 
                     vmax=self.vmaxcolor, interpolation=None)
 
