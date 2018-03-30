@@ -5,23 +5,18 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import animation
 
-#import matplotlib as mpl
-#from matplotlib import pyplot as plt
-#from matplotlib import animation
-#from mpl_toolkits.mplot3d import Axes3D
-
-
 class CellAutomata2D(object):
     """ General class for celullar automata in a 2D lattice.
 
     """
 
-    def __init__(self, xlen, ylen, pbc=False, dtype=int):
+    def __init__(self, xlen, ylen, pbc=False, dtype=int, show_cbar=True):
         # Store the lattice parameters
         self.xlen = xlen
         self.ylen = ylen
         self.pbc = pbc
         self.size = self.xlen*self.ylen
+        self._show_cbar = show_cbar
 
         # Lattice length taking into account boundary conditions
         # and number of cells in each side (margins) used to 
@@ -93,19 +88,46 @@ class CellAutomata2D(object):
         self.latt.fill(fillvalue)
         return
 
-    def evolve(nsteps):
-        """Evolve the system the given number of timesteps.
-    
-        This is a placeholder for the actual implentation of the method 
-        in the chosen model.
-        
-        Parameters:
-        -----------
-            nsteps : int
-                Number of timesteps to evolve.
+    def mass(self):
+        """Return the value of the total mass of the system.
+
         """
-        pass
-        return
+        lattmass = self.latt.sum()
+        return lattmass
+
+    def _evolvestep(self):
+        """Evolve the system one step.
+
+        Returns
+        -------
+            is_active : bool
+                True if the lattice is acvtive and False otherwise.
+
+        """
+        # Placeholder
+        is_active = False
+        return is_active
+
+    def evolve(self, nsteps=1): 
+        """Evolve the system in nsteps timesteps.
+            
+        Parameters
+        ----------
+            nsteps : int
+                Number of steps the system will be evolved.
+
+        Returns
+        -------
+            is_active : bool
+                True if the lattice is active and False otherwise. If the lattice is active but it does not chage (limit cycle of period 1), the function return True.
+
+        """
+        is_active = False
+
+        for i in range(nsteps):
+            is_active = self._evolvestep()
+
+        return is_active
     
     def measure(j_t):
         """Measure the current state of the lattice and store it.
@@ -203,7 +225,7 @@ class CellAutomata2D(object):
         return period, relaxtime
 
 
-    def plot(self, size=3, colorbar=True):
+    def plot(self, size=3):
         """Plot the system configuration. 
 
         """
@@ -211,7 +233,7 @@ class CellAutomata2D(object):
         fig, ax = plt.subplots(figsize=(size,size))
         im = ax.imshow(self.latt, cmap=self.cmap, vmin=self.vmincolor, 
                        vmax=self.vmaxcolor, interpolation=None)
-        if colorbar:
+        if self._show_cbar:
             cbar = fig.colorbar(im, ax=ax)
 
         return fig
@@ -277,7 +299,7 @@ class CellAutomata2D(object):
         return fig
 
 
-    def animate(self, nframes, steps_per_frame=1, frame_interval=300):
+    def animate(self, nframes, steps_per_frame=1, frame_interval=300, size=3):
          
 
         def update(i, steps_per_frame, im, self):
@@ -285,10 +307,12 @@ class CellAutomata2D(object):
             im.set_array(self.latt)
             return im
 
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(size, size))
         im = ax.imshow(self.latt, cmap=self.cmap, vmin=self.vmincolor, 
                     vmax=self.vmaxcolor, interpolation=None)
-        cbar = fig.colorbar(im, ax=ax)
+
+        if self._show_cbar:
+            cbar = fig.colorbar(im, ax=ax)
 
         anim = animation.FuncAnimation(fig, update, frames=nframes, 
                                        blit=False, fargs=(steps_per_frame,
