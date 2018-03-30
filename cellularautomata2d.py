@@ -218,7 +218,29 @@ class CellAutomata2D(object):
 
     def plotevolution(self, nrows, ncols, steps_per_plot=1, size=2.3, 
                       nplots = None):
-        """
+        """Plot several steps in the same graph.
+
+        Parameters
+        ----------
+            nrows : int
+                Number of rows in the graph.
+
+            ncols : int
+                NUmber of columns in the graph.
+
+            steps_per_plot : int
+                Number of timesteps between consecutive plots.
+
+            size : float
+                Size of each plot.
+
+            nplots : int
+                Number of plots. The default is the number of 
+                cells in the graph (nrows*ncols).
+
+        Returns
+        -------
+            fig
 
         """
         if nplots == None:
