@@ -300,6 +300,24 @@ class CellAutomata2D(object):
 
 
     def animate(self, nframes, steps_per_frame=1, frame_interval=300, size=3):
+        """Animate the evolution of the lattice. 
+
+        Parameters
+        ----------
+            nframes : int
+                Number of frames.
+
+            steps_per_frame : int
+                Number of timesteps between frames.
+
+            frame_interval : float
+                Time in milliseconds between frames.
+
+        Returns
+        -------
+            anim
+
+        """
          
 
         def update(i, steps_per_frame, im, self):
